@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="CrazyflieClient.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CrazyflieClient"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+          Margin="0,10,0,30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel 
+            Orientation="Vertical"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Center">
+            <Button 
+                x:Name="connectionButton" 
+                Content="Connect"
+                HorizontalAlignment="Center"
+                Click="onClick"></Button>
+            <TextBox
+                x:Name="infoText"
+                BorderThickness="0"
+                HorizontalAlignment="Center"></TextBox>
+        </StackPanel>
+          
+            <local:Joystick 
+                x:Name="leftStick" 
+                VerticalAlignment="Bottom"
+                FullRangeY="True"
+                Grid.Column="0"></local:Joystick>
+            <local:Joystick 
+                x:Name="rightStick" 
+                VerticalAlignment="Bottom"
+                Grid.Column="2"></local:Joystick>
+
+    </Grid>
+</Page>
