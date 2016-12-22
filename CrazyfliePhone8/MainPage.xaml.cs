@@ -37,14 +37,14 @@ namespace CrazyflieClient
                 {
                     infoText.Text = "";
                     connectionButton.Content = "Disconnect";
-                    crazyflieController.StartCommanderLink(); 
+                    await crazyflieController.Start(); 
                 }
             }
             else if(connectionButton.Content.ToString() == "Disconnect")
             {
                 infoText.Text = "";
                 connectionButton.Content = "Connect";
-                crazyflieController.StopCommanderLink();
+                await crazyflieController.Stop();
             }
         }
     }

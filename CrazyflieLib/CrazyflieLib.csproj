@@ -8,7 +8,7 @@
     <ProjectGuid>{D1F3F561-8D70-49F4-B319-E63C4A50A98A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CrazyflieLib</RootNamespace>
+    <RootNamespace>CrazyflieClient</RootNamespace>
     <AssemblyName>CrazyflieLib</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -34,15 +34,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-  </ItemGroup>
-  <ItemGroup>
     <TargetPlatform Include="Windows, Version=8.1" />
     <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BthCrtp.cs" />
     <Compile Include="CrazyflieController.cs" />
+    <Compile Include="CrtpGattService.cs" />
+    <Compile Include="FlightControlAxes.cs" />
     <Compile Include="FlightController.cs" />
     <Compile Include="IFlightController.cs" />
     <Compile Include="IJoystick.cs" />
