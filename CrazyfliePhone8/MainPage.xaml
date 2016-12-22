@@ -9,41 +9,37 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
           Margin="0,10,0,30">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="200"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel 
-            Orientation="Vertical"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            HorizontalAlignment="Center">
-            <StackPanel>
-                <Button 
-                    x:Name="connectionButton" 
-                    Content="Connect"
-                    Margin="2"
-                    Click="onClick"/>
-                <Button Click="openBluetoothSettings"
-                        Margin="5"
-                        Content="Bluetooth settings"/>
-            </StackPanel>
-            <TextBlock
-                x:Name="infoText"/>
-            <TextBlock
-                x:Name="packetCount"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical">
+            <TextBlock HorizontalAlignment="Center"
+                       x:Name="infoText"/>
+            <TextBlock x:Name="packetCount"/>
         </StackPanel>
 
-        <local:Joystick 
+
+        <StackPanel HorizontalAlignment="Right" Margin="5 0">
+            <Button 
+                x:Name="connectionButton" 
+                Content="Connect"
+                Click="onClick" HorizontalAlignment="Stretch"/>
+            <Button Click="openBluetoothSettings"
+                    Content="Bluetooth" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <local:Joystick 
                 x:Name="leftStick" 
-                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
                 FullRangeY="True"
                 Grid.Column="0"/>
-        <local:Joystick 
+            <local:Joystick 
                 x:Name="rightStick" 
-                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
                 Grid.Column="2"/>
-
+        </Grid>
     </Grid>
 </Page>

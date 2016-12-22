@@ -9,8 +9,10 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Border x:Name="controlBox" Width="150" Height="150" 
-          BorderBrush="Black" BorderThickness="1">
-        <Ellipse x:Name="controlStick" Width="50" Height="50" Fill="Black"/>
-    </Border>
+    <Viewbox>
+        <Border x:Name="controlBox" Width="150" Height="150" 
+              BorderBrush="Black" BorderThickness="1">
+            <Ellipse x:Name="controlStick" Width="50" Height="50" Fill="Black"/>
+        </Border>
+    </Viewbox>
 </UserControl>
