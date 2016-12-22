@@ -105,7 +105,7 @@ namespace CrazyflieClient
         /// <summary>
         /// Write a commander packet (roll, pitch, yaw, thrust) OTA via BLE
         /// </summary>
-        public async Task WriteCommanderPacket(
+        public async Task<bool> WriteCommanderPacket(
             float roll,
             float pitch,
             float yaw,
@@ -113,7 +113,7 @@ namespace CrazyflieClient
         {
             if (this.crtpService == null)
             {
-                return;
+                return false;
             }
 
             IBuffer buf;
@@ -134,16 +134,8 @@ namespace CrazyflieClient
             var status = await crtpChar.WriteValueAsync(
                         buf,
                         GattWriteOption.WriteWithResponse);
-            
-            if (GattCommunicationStatus.Unreachable == status)
-            {
-                // TODO: error reporting
-                return;
-            }
-            else
-            {
-                return;
-            }
+
+            return status == GattCommunicationStatus.Success;
         }
     }
 }

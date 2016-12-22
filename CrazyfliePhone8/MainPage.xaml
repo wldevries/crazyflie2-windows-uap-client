@@ -19,26 +19,31 @@
             Grid.Column="0"
             Grid.ColumnSpan="3"
             HorizontalAlignment="Center">
-            <Button 
-                x:Name="connectionButton" 
-                Content="Connect"
-                HorizontalAlignment="Center"
-                Click="onClick"></Button>
-            <TextBox
-                x:Name="infoText"
-                BorderThickness="0"
-                HorizontalAlignment="Center"></TextBox>
+            <StackPanel>
+                <Button 
+                    x:Name="connectionButton" 
+                    Content="Connect"
+                    Margin="2"
+                    Click="onClick"/>
+                <Button Click="openBluetoothSettings"
+                        Margin="5"
+                        Content="Bluetooth settings"/>
+            </StackPanel>
+            <TextBlock
+                x:Name="infoText"/>
+            <TextBlock
+                x:Name="packetCount"/>
         </StackPanel>
-          
-            <local:Joystick 
+
+        <local:Joystick 
                 x:Name="leftStick" 
                 VerticalAlignment="Bottom"
                 FullRangeY="True"
-                Grid.Column="0"></local:Joystick>
-            <local:Joystick 
+                Grid.Column="0"/>
+        <local:Joystick 
                 x:Name="rightStick" 
                 VerticalAlignment="Bottom"
-                Grid.Column="2"></local:Joystick>
+                Grid.Column="2"/>
 
     </Grid>
 </Page>

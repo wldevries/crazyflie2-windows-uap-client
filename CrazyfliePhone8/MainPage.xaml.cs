@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -14,8 +16,8 @@ namespace CrazyflieClient
         private CrazyflieController crazyflieController;
 
         private bool isCrazyfliePaired;
-        
-        
+        private DispatcherTimer timer;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -37,7 +39,12 @@ namespace CrazyflieClient
                 {
                     infoText.Text = "";
                     connectionButton.Content = "Disconnect";
-                    await crazyflieController.Start(); 
+                    await crazyflieController.Start();
+
+                    this.timer = new DispatcherTimer();
+                    this.timer.Interval = TimeSpan.FromSeconds(.1);
+                    this.timer.Tick += this.UpdatePacketsSent;
+                    this.timer.Start();
                 }
             }
             else if(connectionButton.Content.ToString() == "Disconnect")
@@ -45,7 +52,20 @@ namespace CrazyflieClient
                 infoText.Text = "";
                 connectionButton.Content = "Connect";
                 await crazyflieController.Stop();
+
+                this.timer?.Stop();
+                this.timer = null;
             }
+        }
+
+        private void UpdatePacketsSent(object sender, object e)
+        {
+            this.packetCount.Text = $"{this.crazyflieController.PacketsSent} packets sent";
+        }
+
+        private async void openBluetoothSettings(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri("ms-settings-bluetooth:", UriKind.RelativeOrAbsolute));
         }
     }
 }

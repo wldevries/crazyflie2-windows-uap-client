@@ -41,6 +41,8 @@ namespace CrazyflieClient
             gattService = new CrtpGattService();
         }
 
+        public int PacketsSent { get; private set; }
+
         public Task<bool> IsCrazyfliePaired() =>
             gattService.IsCrazyfliePaired();
 
@@ -48,17 +50,20 @@ namespace CrazyflieClient
         /// This function starts the communication to the crazyflie commander
         /// to set flight setpoints based on the state of the flight controller
         /// </summary>
-        public async Task Start()
+        public async Task<bool> Start()
         {
             // Set up the cancellation token 
             cancellationSource?.Dispose();
+            this.PacketsSent = 0;
 
-            if (await gattService.Initialize())
+            var initialized = await gattService.Initialize();
+            if (initialized)
             {
                 cancellationSource = new CancellationTokenSource();
                 this.backgroundTask = Task.Run(
                     () => CommanderSetpointThread(cancellationSource.Token));
             }
+            return initialized;
         }
 
         /// <summary>
@@ -87,11 +92,19 @@ namespace CrazyflieClient
             while (!cancellationToken.IsCancellationRequested)
             {
                 var axes = await flightController.GetFlightControlAxes();
-                await gattService.WriteCommanderPacket(
+                var result = await gattService.WriteCommanderPacket(
                     (float)(axes.Roll * MaxPitchRollRate),
                     (float)(axes.Pitch * MaxPitchRollRate),
                     (float)(axes.Yaw * MaxYawRate),
                     (ushort)(axes.Thrust * MaxThrustPercent * MaxThrust));
+                if (result)
+                {
+                    this.PacketsSent++;
+                }
+                else
+                {
+                    return;
+                }
             }
         }
     }
