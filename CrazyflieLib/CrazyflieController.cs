@@ -33,7 +33,7 @@ namespace CrazyflieClient
         /// <summary>
         /// Maximum roll value to send to the commander, in percent (0 to 1)
         /// </summary>
-        public double MaxThrustPercent { get; set; } = 0.8;
+        public double MaxThrustPercent { get; set; } = 0.4; //8;
 
         public CrazyflieController(IFlightController flightController)
         {
